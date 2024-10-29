@@ -54,6 +54,7 @@
       <nav id="navbar" class="nav-menu navbar">
         <ul>
           <li><a href="#home" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
+          <li><a href="#lyrics" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Lyrics</span></a></li>
           <li><a href="#resume" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li>
           <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bxs-add-to-queue"></i> <span>Add Songs</span></a></li>
           <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-chat"></i> <span>Contact</span></a></li>
@@ -81,12 +82,36 @@
 
 
     <!-- ======= Lyrics ======= -->
-    <section id="lyrics" class="lyrics">
+    <!-- <section id="lyrics" class="lyrics">
       <div class="lyricsContainer">
-        
-        </div>
+         <h2>Lyrics</h2>
+         <pre id="lyricsDisplay"></pre>
       </div>
-    </section>
+   </section> -->
+   <!-- Lyrics Section with Sub-sections -->
+  <!-- Lyrics Section with Toggle for Khowar and Urdu -->
+<section id="lyrics" class="lyrics">
+  <div class="lyricsContainer">
+    <!-- Toggle Buttons -->
+    <div class="toggle-buttons">
+      <button id="toggleKhowar" class="toggle-btn">Khowar</button>
+      <button id="toggleUrdu" class="toggle-btn active">Urdu</button>
+    </div>
+
+    <!-- Lyrics Content Sections -->
+    <div id="khowarLyrics" class="sub-section">
+      <h3>Khowar Lyrics</h3>
+      <p id="khowarText">Select a song to view the Khowar lyrics.</p>
+    </div>
+    <div id="urduLyrics" class="sub-section active">
+      <h3>Urdu Lyrics</h3>
+      <p id="urduText">Select a song to view the Urdu lyrics.</p>
+    </div>
+  </div>
+</section>
+
+
+   
 
     <!-- ======= Resume Section ======= -->
     <section id="resume" class="resume">

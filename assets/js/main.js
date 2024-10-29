@@ -265,35 +265,88 @@
 // Fetch Songs
 
 // Import allMusic from music-list.js
+// Import allMusic from music-list.js
 import allMusic from './music-list.js';
 
 document.addEventListener("DOMContentLoaded", function () {
   const songListContainer = document.getElementById('songList');
+  const khowarLyricsContainer = document.getElementById('khowarText');
+  const urduLyricsContainer = document.getElementById('urduText');
+  const khowarSection = document.getElementById('khowarLyrics');
+  const urduSection = document.getElementById('urduLyrics');
+  const toggleKhowar = document.getElementById('toggleKhowar');
+  const toggleUrdu = document.getElementById('toggleUrdu');
 
   // Display songs on page load
   function displaySongs() {
     songListContainer.innerHTML = ''; // Clear any existing content
 
-    // Iterate through allMusic and display each song
     allMusic.forEach((song) => {
       const songItem = document.createElement('div');
       songItem.classList.add('song-item');
 
-      // Song name
       const songName = document.createElement('h3');
       songName.textContent = song.name;
       songItem.appendChild(songName);
 
-      // Song details
       const songDetails = document.createElement('p');
       songDetails.textContent = `Writer: ${song.writer} | Singer: ${song.singer}`;
       songItem.appendChild(songDetails);
 
-      // Append the song item to the container
+      // Click event to fetch and split lyrics
+      songItem.addEventListener('click', () => {
+        fetchAndDisplayLyrics(song.lyricsFile);
+        toggleSection("urdu"); // Show Urdu section by default
+        document.getElementById("lyrics").scrollIntoView({ behavior: "smooth" });
+      });
+
       songListContainer.appendChild(songItem);
     });
   }
 
+  // Fetch lyrics file, split by "URDUONWARDS" and display in the respective containers
+  function fetchAndDisplayLyrics(lyricsFile) {
+    const lyricsPath = `assets/lyrics/${lyricsFile}`;
+    fetch(lyricsPath)
+      .then(response => {
+        if (!response.ok) throw new Error("Lyrics not found");
+        return response.text();
+      })
+      .then(data => {
+        const [englishLyrics, khowarLyrics] = data.split("URDUONWARDS");
+        urduLyricsContainer.textContent = englishLyrics || "Urdu lyrics not found.";
+        khowarLyricsContainer.textContent = khowarLyrics || "Khowar lyrics not found.";
+      })
+      .catch(error => {
+        console.error("Error fetching lyrics:", error);
+        urduLyricsContainer.textContent = "Urdu lyrics not found.";
+        khowarLyricsContainer.textContent = "Khowar lyrics not found.";
+      });
+  }
+
+  // Toggle visibility between Khowar and Urdu sections
+  function toggleSection(language) {
+    if (language === "khowar") {
+      khowarSection.classList.add('active');
+      urduSection.classList.remove('active');
+      toggleKhowar.classList.add('active');
+      toggleUrdu.classList.remove('active');
+    } else {
+      urduSection.classList.add('active');
+      khowarSection.classList.remove('active');
+      toggleUrdu.classList.add('active');
+      toggleKhowar.classList.remove('active');
+    }
+  }
+
+  // Toggle button event listeners
+  toggleKhowar.addEventListener('click', () => toggleSection("khowar"));
+  toggleUrdu.addEventListener('click', () => toggleSection("urdu"));
+
   // Call displaySongs on page load
   displaySongs();
 });
+
+
+
+
