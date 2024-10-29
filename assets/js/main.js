@@ -305,24 +305,29 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   // Fetch lyrics file, split by "URDUONWARDS" and display in the respective containers
-  function fetchAndDisplayLyrics(lyricsFile) {
-    const lyricsPath = `assets/lyrics/${lyricsFile}`;
-    fetch(lyricsPath)
-      .then(response => {
-        if (!response.ok) throw new Error("Lyrics not found");
-        return response.text();
-      })
-      .then(data => {
-        const [englishLyrics, khowarLyrics] = data.split("URDUONWARDS");
-        urduLyricsContainer.textContent = englishLyrics || "Urdu lyrics not found.";
-        khowarLyricsContainer.textContent = khowarLyrics || "Khowar lyrics not found.";
-      })
-      .catch(error => {
-        console.error("Error fetching lyrics:", error);
-        urduLyricsContainer.textContent = "Urdu lyrics not found.";
-        khowarLyricsContainer.textContent = "Khowar lyrics not found.";
-      });
-  }
+  // Fetch lyrics file, split by "URDUONWARDS" and display in the respective containers
+function fetchAndDisplayLyrics(lyricsFile) {
+  const lyricsPath = `assets/lyrics/${lyricsFile}`;
+  fetch(lyricsPath)
+    .then(response => {
+      if (!response.ok) throw new Error("Lyrics not found");
+      return response.text();
+    })
+    .then(data => {
+      const lyricsLines = data.split('\n').slice(3).join('\n');
+      const [englishLyrics, khowarLyrics] = lyricsLines.split("URDUONWARDS");
+      
+      // Preserve line breaks by replacing newlines with <br> tags
+      urduLyricsContainer.innerHTML = (englishLyrics || "Urdu lyrics not found.").replace(/\n/g, "<br>");
+      khowarLyricsContainer.innerHTML = (khowarLyrics || "Khowar lyrics not found.").replace(/\n/g, "<br>");
+    })
+    .catch(error => {
+      console.error("Error fetching lyrics:", error);
+      urduLyricsContainer.innerHTML = "Urdu lyrics not found.";
+      khowarLyricsContainer.innerHTML = "Khowar lyrics not found.";
+    });
+}
+
 
   // Toggle visibility between Khowar and Urdu sections
   function toggleSection(language) {

@@ -7,6 +7,7 @@
 */
 
 @import url('https://fonts.googleapis.com/css2?family=Varela+Round&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Noto+Nastaliq+Urdu:wght@400..700&display=swap');
 
 /*--------------------------------------------------------------
 # General
@@ -14,6 +15,7 @@
 body {
   font-family: "Open Sans", sans-serif;
   color: #272829;
+  overflow: hidden;
 }
 
 a {
@@ -1256,10 +1258,20 @@ iframe {
   color: black;
 }
 
+.jotform {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
 #resume {
-   background: #fff;
+   background: #f8f8f8;
    padding-top: 30px;
    padding-bottom: 30px;
+   height: 100vh;
+   overflow-y: scroll;
 }
 
 #resume .resume-header {
@@ -1501,40 +1513,28 @@ iframe {
 
 
 /* Set a fixed height for the lyrics section and enable scrolling */
+/* Main lyrics section to take full viewport height */
 #lyrics {
-  height: 100vh; /* Adjust height as needed */
-  overflow-y: auto;
+  height: 100vh; 
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Container for the lyrics content with center alignment */
+.lyricsContainer {
+  flex-grow: 1;
+  overflow: hidden; /* Prevent scrollbar in main container */
   padding: 20px;
   box-sizing: border-box;
-  background-color: #f9f9f9; /* Optional background for clarity */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
-#lyricsDisplay {
-  white-space: pre-wrap; /* Preserve line breaks in lyrics text */
-  font-family: 'Roboto', sans-serif;
-  font-size: 16px;
-}
-
-/* Optional: Customize scrollbar */
-#lyrics::-webkit-scrollbar {
-  width: 8px;
-}
-
-#lyrics::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-#lyrics::-webkit-scrollbar-thumb {
-  background: #149ddd;
-  border-radius: 10px;
-}
-
-#lyrics::-webkit-scrollbar-thumb:hover {
-  background: #37b3ed;
-}
-
-
-/* Toggle button styles */
+/* Toggle buttons for language selection */
 .toggle-buttons {
   display: flex;
   justify-content: center;
@@ -1544,8 +1544,8 @@ iframe {
 .toggle-btn {
   background-color: #f1f1f1;
   border: none;
-  padding: 10px 20px;
-  margin: 0 5px;
+  padding: 10px 30px;
+  margin: 0 15px;
   cursor: pointer;
   font-size: 16px;
 }
@@ -1555,16 +1555,51 @@ iframe {
   color: #fff;
 }
 
-/* Sub-section styling */
+/* Inner sections for lyrics (Urdu and Khowar) */
+#urdu-lyrics, #khowar-lyrics {
+  max-width: 800px;
+  width: 100%;
+  height: 100%; /* Full height within lyrics container */
+  white-space: pre-wrap;
+  line-height: 1.6;
+  overflow-y: scroll;
+  -ms-overflow-style: none; /* Hide scrollbar on IE/Edge */
+  scrollbar-width: none; /* Hide scrollbar on Firefox */
+}
+
+/* Hide scrollbars on Chrome, Safari, and newer Edge */
+#urdu-lyrics::-webkit-scrollbar,
+#khowar-lyrics::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+  display: none;
+}
+
+/* Sub-section visibility control */
 .sub-section {
-  display: none; /* Hide by default */
-  height: 200px; /* Adjust height for lyrics overflow control */
+  display: none;
   overflow-y: auto;
+  font-family: 'Comfortaa', cursive, sans-serif;
 }
 
 .sub-section.active {
-  display: block; /* Show only the active section */
+  display: block;
 }
+
+#khowarLyrics {
+  font-family: "Noto Nastaliq Urdu", serif;
+  line-height: 2.25;
+}
+
+/* .urdu {
+  font-family: "Noto Nastaliq Urdu", serif;
+  font-weight: 400;
+}
+
+#urduLyrics {
+  font-family: "Noto Nastaliq Urdu", serif;
+  font-weight: 400;
+} */
 
 
 
